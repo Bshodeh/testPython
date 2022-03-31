@@ -89,7 +89,7 @@ class OutputErrors (object):
         # add map meta data
         self.createMapMetaData(map,title,release);
         # create ID using uuid
-        map.attrib['id'] = f"id{uuid4()}"
+        map.attrib['id'] = "id{}".format(uuid4)
         # loop each file
         # create topic ref for each file in the ditamap
         # add all messages into tables to dita files
