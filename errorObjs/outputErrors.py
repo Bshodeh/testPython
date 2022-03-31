@@ -266,7 +266,6 @@ class OutputErrors (object):
         for c in stream:
             count+=1
             # convert ASCII code to character required by python 3.10
-            c = chr(c)
             if count > breakCount and prev_char == '<' and c != '/':
                 new_stream.append('\n')
                 count = 0
