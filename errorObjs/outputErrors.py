@@ -101,19 +101,19 @@ class OutputErrors (object):
             chapter = ''.join([control.dita_dir_name, os.sep, clean_main_ref, '.dita'])
             # create main category ref
             chapter_ref = ET.SubElement(map, "topicref")
-            chapter_ref.attrib["href"] = f"ncc_error_messages/{clean_main_ref}.dita"
+            chapter_ref.attrib["href"] = "ncc_error_messages/{}.dita".format(clean_main_ref)
             chapter_ref.attrib["type"] = "concept"
             for category in grouped_categories:
                 id = uuid4();
                 # add topic ref without special characters for the current category ,type and href
                 topic_ref = ET.SubElement(chapter_ref, "topicref")
                 clean_title = self.removeSpecialChracters(category.title)
-                topic_ref.attrib["href"] = f"ncc_error_messages/{clean_main_ref}_{clean_title}_{id}.dita"
+                topic_ref.attrib["href"] = "ncc_error_messages/{}_{}_{}.dita".format(clean_main_ref,clean_title,id)
                 topic_ref.attrib["type"] = "concept"
                 # Create the root element
                 concept = ET.Element('concept')
                 # add id for root and xref elements ( must be the same id )
-                concept.attrib['id'] = f"id{id}"
+                concept.attrib['id'] = "id{}".format(id)
                 # Add the title for the dita file ( same  title of the error file )
                 title = ET.SubElement(concept, 'title')
                 title.text = category.title.title()
@@ -121,17 +121,17 @@ class OutputErrors (object):
                 conbody = ET.SubElement(concept, "conbody")
                 # add xref for referencing the table and description
                 p = ET.SubElement(conbody, "p")
-                p.text = f"This table {category.description}";
+                p.text = "This table {}".format(category.description)
                 # create table
                 self.addCategoryTable(category, conbody, False)
                 # create output filename without special characters  for the dita file containing all errors
-                topic_ref_file_name = ''.join([control.dita_dir_name, os.sep, f"{clean_main_ref}_{clean_title}_{id}", '.dita'])
+                topic_ref_file_name = ''.join([control.dita_dir_name, os.sep, "{}_{}_{}".format(clean_main_ref,clean_title,id), '.dita'])
                 self.writeToFile(topic_ref_file_name, control.dita_header, concept)
 
             # create content of chapter itself
             chapter_concept = ET.Element('concept')
             id = uuid4();
-            chapter_concept.attrib['id'] = f"id{id}"
+            chapter_concept.attrib['id'] = "id{}".format(id)
             # Add the title for the dita file ( same  title of the error file )
             title = ET.SubElement(chapter_concept, 'title')
             title.text = main_ref.title()
@@ -139,7 +139,7 @@ class OutputErrors (object):
             chapter_conbody = ET.SubElement(chapter_concept, "conbody")
             # add table description
             p = ET.SubElement(chapter_conbody, "p")
-            p.text = f"This chapter describes the {main_ref}  you may receive when you use the NCC.";
+            p.text = "This chapter describes the {}  you may receive when you use the NCC.".format(main_ref)
             self.writeToFile(chapter, control.dita_header, chapter_concept)
 
         ditamap_file_name = ''.join([dita_map_dir, os.sep, "ncc_error_messages", '.ditamap'])
@@ -325,4 +325,4 @@ class OutputErrors (object):
         other_meta.attrib['content'] = 'document'
         other_meta = ET.SubElement(topic_meta, 'othermeta')
         other_meta.attrib['name'] = 'docnumber'
-        other_meta.attrib['content'] = f"P556766-DN1000055003-{release}"
+        other_meta.attrib['content'] = "P556766-DN1000055003-{}".format(release)
