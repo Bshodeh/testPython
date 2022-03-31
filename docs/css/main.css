@@ -1,0 +1,45 @@
+html, body {
+	font-family:Arial;
+	padding:5pt;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color:#124191;
+}
+#container {
+	
+}
+#toc {
+	width:210px;
+	float:left;
+	position:fixed;
+	overflow-y:auto;
+	height:100%;
+}
+#content {
+	margin-left: 230px;
+	
+}
+
+/* Nav */
+#toc a {
+	text-decoration:none;
+}
+
+/* Toc indents */
+.toch1, .toch2, .toch3 {
+	padding: 2px 0px 2px 0px;
+	
+}
+.toch1 {
+	padding-left:0px;
+}
+.toch2 {
+	padding-left:10px;
+
+}
+
+.toch3 {
+	padding-left:20px;
+
+}
